@@ -996,14 +996,14 @@ void lioOptimization::stateEstimation(std::vector<std::vector<point3D>> &v_cut_s
             staticInitialization(p_frame);
     }
 
-    std::cout << "after solution: " << std::endl;
-    std::cout << "rotation_begin: " << p_frame->p_state->rotation_begin.x() << " " << p_frame->p_state->rotation_begin.y() << " " 
-              << p_frame->p_state->rotation_begin.z() << " " << p_frame->p_state->rotation_begin.w() << std::endl;
-    std::cout << "translation_begin: " << p_frame->p_state->translation_begin.x() << " " << p_frame->p_state->translation_begin.y() << " " << p_frame->p_state->translation_begin.z() << std::endl;
+    // std::cout << "after solution: " << std::endl;
+    // std::cout << "rotation_begin: " << p_frame->p_state->rotation_begin.x() << " " << p_frame->p_state->rotation_begin.y() << " " 
+    //           << p_frame->p_state->rotation_begin.z() << " " << p_frame->p_state->rotation_begin.w() << std::endl;
+    // std::cout << "translation_begin: " << p_frame->p_state->translation_begin.x() << " " << p_frame->p_state->translation_begin.y() << " " << p_frame->p_state->translation_begin.z() << std::endl;
 
-    std::cout << "rotation_end: " << p_frame->p_state->rotation.x() << " " << p_frame->p_state->rotation.y() << " " 
-              << p_frame->p_state->rotation.z() << " " << p_frame->p_state->rotation.w() << std::endl;
-    std::cout << "translation_end: " << p_frame->p_state->translation.x() << " " << p_frame->p_state->translation.y() << " " << p_frame->p_state->translation.z() << std::endl;
+    // std::cout << "rotation_end: " << p_frame->p_state->rotation.x() << " " << p_frame->p_state->rotation.y() << " " 
+    //           << p_frame->p_state->rotation.z() << " " << p_frame->p_state->rotation.w() << std::endl;
+    // std::cout << "translation_end: " << p_frame->p_state->translation.x() << " " << p_frame->p_state->translation.y() << " " << p_frame->p_state->translation.z() << std::endl;
 
     imu_pro->last_state = imu_pro->current_state;
     imu_pro->current_state = new state(imu_pro->last_state, false);
@@ -1198,8 +1198,11 @@ void lioOptimization::run()
             }
         }
 
+        static TicToc timer("odom estimation");
+        timer.tic();
         stateEstimation(v_cut_sweep, measurement.second.first, measurement.second.second);
-        
+        timer.toc(100);
+
         last_time_frame = time_frame;
         index_frame++;
 

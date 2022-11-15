@@ -216,3 +216,24 @@ void transformPoint(MotionCompensation compensation, point3D &point_temp, Eigen:
     }
     point_temp.point = R * (R_imu_lidar * point_temp.raw_point + t_imu_lidar) + t;
 }
+
+TicToc::TicToc(std::string name_in){
+    start = std::chrono::system_clock::now();
+    total_frame = 0;
+    total_time = 0.0;
+    name = name_in;
+}
+
+void TicToc::tic(){
+    start = std::chrono::system_clock::now();
+}
+
+void TicToc::toc(int freq){
+    end = std::chrono::system_clock::now();
+    std::chrono::duration<double> elapsed_seconds = end - start;
+    total_time+= elapsed_seconds.count() * 1000;
+    total_frame++;
+    if(total_frame%freq==0)
+//        std::cout<<"the average time of " << name <<" is "<< elapsed_seconds.count() * 1000 << "ms"<<std::endl;
+        std::cout<<"the average time of " << name <<" is "<< total_time/total_frame << "ms"<<std::endl;
+}

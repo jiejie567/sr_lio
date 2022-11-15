@@ -2,7 +2,7 @@ common:
     lidar_topic:  "/velodyne_points_0"
     imu_topic:  "/imu/data"
     point_filter_num: 4
-    sweep_cut_num: 3
+    sweep_cut_num: 1
     time_sync_en: false         # ONLY turn on when external time synchronization is really not possible
     gravity_acc: [ 0.0, 0.0, 0.0]
     
@@ -54,8 +54,8 @@ odometry_options:
     initialization: INIT_IMU # [INIT_CONSTANT_VELOCITY, INIT_IMU]
 
 icp_options:
-    size_voxel_map: 1.0 # The voxel size of in the voxel map
-    num_iters_icp: 15 # The number of iterations of the ICP
+    size_voxel_map: 0.5 # The voxel size of in the voxel map
+    num_iters_icp: 3 # The number of iterations of the ICP
     min_number_neighbors: 20 # The minimum number of neighbor points to define a valid neighborhood
     voxel_neighborhood: 1
     max_number_neighbors: 20

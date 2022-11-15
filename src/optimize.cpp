@@ -234,14 +234,14 @@ optimizeSummary lioOptimization::optimizeByAnalyticLidar(const icpOptions &cur_i
         if (p_frame->frame_id > sweep_cut_num) {
             if (cur_icp_options.distance == CT_POINT_TO_PLANE)
             {
-                LocationConsistencyFactor *cost_location_consistency = new LocationConsistencyFactor(previous_translation, sqrt(num_residuals * cur_icp_options.beta_location_consistency * laser_point_cov));
-                problem.AddResidualBlock(cost_location_consistency, nullptr, &begin_t.x());
-
-                RotationConsistencyFactor *cost_rotation_consistency = new RotationConsistencyFactor(previous_orientation, sqrt(num_residuals * cur_icp_options.beta_orientation_consistency * laser_point_cov));
-                problem.AddResidualBlock(cost_rotation_consistency, nullptr, &begin_quat.x());
-
-                SmallVelocityFactor *cost_small_velocity = new SmallVelocityFactor(sqrt(num_residuals * cur_icp_options.beta_small_velocity * laser_point_cov));
-                problem.AddResidualBlock(cost_small_velocity, nullptr, &begin_t.x(), &end_t.x());
+//                LocationConsistencyFactor *cost_location_consistency = new LocationConsistencyFactor(previous_translation, sqrt(num_residuals * cur_icp_options.beta_location_consistency * laser_point_cov));
+//                problem.AddResidualBlock(cost_location_consistency, nullptr, &begin_t.x());
+//
+//                RotationConsistencyFactor *cost_rotation_consistency = new RotationConsistencyFactor(previous_orientation, sqrt(num_residuals * cur_icp_options.beta_orientation_consistency * laser_point_cov));
+//                problem.AddResidualBlock(cost_rotation_consistency, nullptr, &begin_quat.x());
+//
+//                SmallVelocityFactor *cost_small_velocity = new SmallVelocityFactor(sqrt(num_residuals * cur_icp_options.beta_small_velocity * laser_point_cov));
+//                problem.AddResidualBlock(cost_small_velocity, nullptr, &begin_t.x(), &end_t.x());
             }
         }
         if (num_residuals < cur_icp_options.min_number_neighbors)
@@ -574,14 +574,14 @@ optimizeSummary lioOptimization::optimizeByAnalyticLio(const icpOptions &cur_icp
             switch (cur_icp_options.distance) {
                 case CT_POINT_TO_PLANE:
                 {
-                    LocationConsistencyFactor *cost_location_consistency = new LocationConsistencyFactor(previous_translation, sqrt(num_residuals * cur_icp_options.beta_location_consistency * laser_point_cov));
-                    problem.AddResidualBlock(cost_location_consistency, nullptr, &begin_t.x());
-
-                    RotationConsistencyFactor *cost_rotation_consistency = new RotationConsistencyFactor(previous_orientation, sqrt(num_residuals * cur_icp_options.beta_orientation_consistency * laser_point_cov));
-                    problem.AddResidualBlock(cost_rotation_consistency, nullptr, &begin_quat.x());
-
-                    SmallVelocityFactor *cost_small_velocity = new SmallVelocityFactor(sqrt(num_residuals * cur_icp_options.beta_small_velocity * laser_point_cov));
-                    problem.AddResidualBlock(cost_small_velocity, nullptr, &begin_t.x(), &end_t.x());
+//                    LocationConsistencyFactor *cost_location_consistency = new LocationConsistencyFactor(previous_translation, sqrt(num_residuals * cur_icp_options.beta_location_consistency * laser_point_cov));
+//                    problem.AddResidualBlock(cost_location_consistency, nullptr, &begin_t.x());
+//
+//                    RotationConsistencyFactor *cost_rotation_consistency = new RotationConsistencyFactor(previous_orientation, sqrt(num_residuals * cur_icp_options.beta_orientation_consistency * laser_point_cov));
+//                    problem.AddResidualBlock(cost_rotation_consistency, nullptr, &begin_quat.x());
+//
+//                    SmallVelocityFactor *cost_small_velocity = new SmallVelocityFactor(sqrt(num_residuals * cur_icp_options.beta_small_velocity * laser_point_cov));
+//                    problem.AddResidualBlock(cost_small_velocity, nullptr, &begin_t.x(), &end_t.x());
 
                     if (p_frame->p_state->pre_integration->sum_dt < 10.0) {
 
@@ -872,7 +872,7 @@ estimationSummary lioOptimization::optimize(cloudFrame *p_frame, const icpOption
 
     {
         optimizeSummary optimize_summary;
-        if (options.optimize_options.solver == LIO && initial_flag) {
+        if (options.optimize_options.solver == LIO && initial_flag && 1) {
             optimize_summary = optimizeByAnalyticLio(cur_icp_options, voxel_map, keypoints, p_frame);
         } else {
             optimize_summary = optimizeByAnalyticLidar(cur_icp_options, voxel_map, keypoints, p_frame);

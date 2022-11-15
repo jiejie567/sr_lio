@@ -209,3 +209,16 @@ namespace std {
         return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
     }
 }
+
+class TicToc{
+public:
+    TicToc(std::string name_in);
+    void tic();
+    void toc(int freq);
+
+private:
+    std::chrono::time_point<std::chrono::system_clock> start, end;
+    unsigned long total_frame;
+    double total_time;
+    std::string name;
+};
